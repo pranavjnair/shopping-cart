@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    active: default
+
+---
+
+spring:
+  profiles: default
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: shoppingcartdb
+
+---
+
+spring:
+  profiles: test
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: shoppingcartdb
+
+---
+
+spring:
+  profiles: prod
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: shoppingcartdb
