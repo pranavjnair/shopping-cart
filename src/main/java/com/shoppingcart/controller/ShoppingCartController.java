@@ -1,7 +1,9 @@
 package com.shoppingcart.controller;
 
 import com.shoppingcart.App;
+import com.shoppingcart.dto.ShoppingCartResponse;
 import com.shoppingcart.model.ShoppingCart;
+import com.shoppingcart.dto.ShoppingCartRequest;
 import com.shoppingcart.service.ShoppingCartService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("shoppingcarts")
+@RequestMapping("/carts")
 public class ShoppingCartController {
     private static Logger log = LoggerFactory.getLogger(App.class);
 
@@ -30,10 +32,12 @@ public class ShoppingCartController {
         }
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public ShoppingCart insertShoppingCart(@RequestBody ShoppingCart shoppingCart) {
-        log.info("Inserting shopping cart with ID: {}.", shoppingCart);
-        return shoppingCartService.insertShoppingCart(shoppingCart.getUserId(),shoppingCart.getId());
+    @RequestMapping(value = "",method = RequestMethod.POST)
+    public ShoppingCartResponse addItemToShoppingCart(@RequestBody ShoppingCartRequest shoppingCartRequest){
+        ShoppingCart shoppingCart = shoppingCartService.insertItem(shoppingCartRequest.getUserId(),shoppingCartRequest.getItem());
+        ShoppingCartResponse shoppingCartResponse = new ShoppingCartResponse(shoppingCart);
+        return shoppingCartResponse;
     }
+
 
 }

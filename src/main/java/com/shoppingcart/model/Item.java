@@ -4,12 +4,21 @@ public class Item {
 
     private String itemId;
     private Double price;
-    private int quantity;
+    private Integer quantity;
+
+    public Item(){
+    }
 
     public Item(String itemId, Double price){
         this.itemId = itemId;
         this.price = price;
         this.quantity = 1;
+    }
+
+    public Item(String itemId, Double price, Integer quantity){
+        this.itemId = itemId;
+        this.price = price;
+        this.quantity = quantity;
     }
 
     public String getItemId() {
@@ -28,11 +37,11 @@ public class Item {
         this.price = price;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 }
