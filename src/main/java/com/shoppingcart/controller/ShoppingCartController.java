@@ -5,6 +5,7 @@ import com.shoppingcart.dto.ShoppingCartResponse;
 import com.shoppingcart.model.ShoppingCart;
 import com.shoppingcart.dto.ShoppingCartRequest;
 import com.shoppingcart.service.ShoppingCartService;
+import com.sun.org.apache.regexp.internal.RE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,13 @@ public class ShoppingCartController {
     @RequestMapping(value = "",method = RequestMethod.POST)
     public ShoppingCartResponse addItemToShoppingCart(@RequestBody ShoppingCartRequest shoppingCartRequest){
         ShoppingCart shoppingCart = shoppingCartService.insertItem(shoppingCartRequest.getUserId(),shoppingCartRequest.getItem());
-        ShoppingCartResponse shoppingCartResponse = new ShoppingCartResponse(shoppingCart);
-        return shoppingCartResponse;
+        return new ShoppingCartResponse(shoppingCart);
+    }
+
+    @RequestMapping(value = "{shoppingCartRequest}",method = RequestMethod.DELETE)
+    public ShoppingCartResponse removeItemFromShoppingCart(@PathVariable("shoppingCartRequest") ShoppingCartRequest shoppingCartRequest){
+        ShoppingCart shoppingCart = shoppingCartService.removeItem(shoppingCartRequest.getUserId(),shoppingCartRequest.getItem());
+        return new ShoppingCartResponse(shoppingCart);
     }
 
     
