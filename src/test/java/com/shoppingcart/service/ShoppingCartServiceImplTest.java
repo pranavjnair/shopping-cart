@@ -1,10 +1,12 @@
 package com.shoppingcart.service;
 
+import com.shoppingcart.exception.NotFoundException;
 import com.shoppingcart.model.Item;
 import com.shoppingcart.model.ShoppingCart;
 import com.shoppingcart.model.User;
 import com.shoppingcart.repository.ShoppingCartRepository;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -56,9 +58,26 @@ class ShoppingCartServiceImplTest {
     }
 
     @Test
-    void removeItem() {
-
+    void insertItemForNonExistingUser() {
+        Item item1 = new Item("banana", 4.00);
+        Assertions.assertThrows(NotFoundException.class,()->shoppingCartService.insertItem("abc123", item1));
     }
+
+
+
+    @Test
+    void removeItemForNonExistingUser() {
+        Item item1 = new Item("banana", 4.00);
+        Assertions.assertThrows(NotFoundException.class,()->shoppingCartService.removeItem("abc123", item1));
+    }
+
+    @Test
+    void removeItemForNonExistingItem() {
+        Item item1 = new Item("grape", 4.00);
+        Assertions.assertThrows(NotFoundException.class,()->shoppingCartService.removeItem("abc123", item1));
+    }
+
+
 
     @Test
     void insertShoppingCart() {
